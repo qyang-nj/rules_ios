@@ -131,7 +131,7 @@ def _write_umbrella_header(
         private_headers = [],
         module_name = None,
         **kwargs):
-    basename = "{name}-umbrella.h".format(name = name)
+    basename = "{name}.h".format(name = name)
     destination = paths.join(name + "-modulemap", basename)
     if not module_name:
         module_name = name
