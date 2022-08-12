@@ -132,7 +132,7 @@ def _write_umbrella_header(
         module_name = None,
         **kwargs):
     basename = "{name}.h".format(name = name)
-    if sets.contains([paths.basename(h) for h in public_headers], basename):
+    if len([h for h in public_headers if paths.basename(h) == basename]) > 0:
         # If MyModule.h already exists in the public_headers,
         # we will generate MyModule-umbrella.h instead.
         basename = "{name}-umbrella.h".format(name = name)
