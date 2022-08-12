@@ -130,8 +130,14 @@ def _write_umbrella_header(
         name,
         generate_default_umbrella_header,
         public_headers = [],
-        module_name = None):
-    basename = "{name}-umbrella.h".format(name = name)
+        module_name = None,
+        **kwargs):
+    basename = "{name}.h".format(name = name)
+    if len([h for h in public_headers if paths.basename(h).lower() == basename.lower()]) > 0:
+        # If MyModule.h already exists in the public_headers,
+        # we will generate MyModule-umbrella.h instead.
+        basename = "{name}-umbrella.h".format(name = name)
+
     destination = paths.join(name + "-modulemap", basename)
     if not module_name:
         module_name = name
