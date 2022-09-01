@@ -1013,24 +1013,6 @@ def apple_library(name, library_tools = {}, export_private_headers = True, names
         lib_names.append(cpp_libname)
 
     additional_objc_copts.append("-I.")
-    index_while_building_objc_copts = select({
-        "@build_bazel_rules_ios//:use_global_index_store": [
-            # Note: this won't work work for remote caching yet. It uses a
-            # _different_ global index for objc than so that the BEP grep in
-            # rules_ios picks this up.
-            # Checkout the task roadmap for future improvements:
-            # Docs/index_while_building.md
-            "-index-store-path",
-            "bazel-out/rules_ios_global_index_store.indexstore",
-        ],
-        "//conditions:default": [
-            "-index-store-path",
-            "$(GENDIR)/{package}/rules_ios_objc_library_{libname}.indexstore".format(
-                package = native.package_name(),
-                libname = objc_libname,
-            ),
-        ],
-    })
 
     additional_objc_vfs_deps = select({
         "@build_bazel_rules_ios//:virtualize_frameworks": [framework_vfs_overlay_name_swift] + [framework_vfs_overlay_name],
@@ -1048,7 +1030,7 @@ def apple_library(name, library_tools = {}, export_private_headers = True, names
         srcs = objc_sources + objc_private_hdrs + objc_non_exported_hdrs,
         non_arc_srcs = objc_non_arc_sources,
         hdrs = objc_hdrs,
-        copts = copts_by_build_setting.objc_copts + objc_copts + additional_objc_vfs_copts + additional_objc_copts + index_while_building_objc_copts,
+        copts = copts_by_build_setting.objc_copts + objc_copts + additional_objc_vfs_copts + additional_objc_copts,
         deps = deps + private_deps + lib_names + additional_objc_vfs_deps,
         module_map = module_map,
         sdk_dylibs = sdk_dylibs,
