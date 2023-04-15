@@ -446,6 +446,7 @@ def _get_framework_files(ctx, deps):
         swiftdoc = swiftdoc_out,
         swiftinterface = swiftinterface_out,
         manifest = framework_manifest,
+        binaries_in = binaries_in,
     )
 
     inputs = struct(
@@ -1044,6 +1045,9 @@ def _apple_framework_packaging_impl(ctx):
     out_files.extend(outputs.headers)
     out_files.extend(outputs.private_headers)
     out_files.extend(outputs.modulemaps)
+
+    if virtualize_frameworks:
+        out_files.extend(outputs.binaries_in)
 
     default_info = DefaultInfo(files = depset(out_files + bundle_outs.files.to_list()))
 
