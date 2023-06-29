@@ -529,6 +529,8 @@ def apple_library(name, library_tools = {}, export_private_headers = True, names
     module_map = kwargs.pop("module_map", None)
     swift_objc_bridging_header = kwargs.pop("swift_objc_bridging_header", None)
 
+    macros = kwargs.pop("macros", [])
+
     # Historically, xcode and cocoapods use an umbrella header that imports Foundation and UIKit at the
     # beginning of it. See:
     # * https://github.com/CocoaPods/CocoaPods/issues/6815#issuecomment-330046236
@@ -978,6 +980,7 @@ def apple_library(name, library_tools = {}, export_private_headers = True, names
             tags = tags_manual,
             defines = defines + swift_defines,
             testonly = testonly,
+            macros = macros,
             **kwargs
         )
         lib_names.append(swift_libname)
