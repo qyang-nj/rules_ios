@@ -682,10 +682,6 @@ def _bundle_dynamic_framework(ctx, is_extension_safe, avoid_deps):
     apple_xplat_toolchain_info = ctx.attr._xplat_toolchain[AppleXPlatToolsToolchainInfo]
     bin_root_path = ctx.bin_dir.path
     bundle_id = ctx.attr.bundle_id
-    if not bundle_id:
-        # This is generally not expected behavior - if they don't want a
-        # processed infoplit its possible, but validate for the common case
-        fail("Missing bundle_id: Info.plist actions require one")
 
     bundle_name = ctx.attr.framework_name
     bundle_extension = ".framework"
