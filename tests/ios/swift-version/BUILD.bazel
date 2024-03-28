@@ -1,3 +1,0 @@
-load(":swift_version_tests.bzl", "apple_framework_swift_version_test_suite")
-
-apple_framework_swift_version_test_suite()

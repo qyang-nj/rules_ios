@@ -1,6 +1,0 @@
-framework module NestedHeaders {
-   umbrella header "NestedHeadersShared.h"
-
-   export *
-   module * { export *}
-}
