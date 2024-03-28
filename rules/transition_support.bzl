@@ -105,7 +105,7 @@ def _apple_rule_transition_impl(settings, attr):
     ret = {
         "//command_line_option:apple configuration distinguisher": "applebin_" + platform_type,
         "//command_line_option:apple_platform_type": platform_type,
-        "//command_line_option:apple_split_cpu": settings["//command_line_option:apple_split_cpu"],
+        "//command_line_option:apple_split_cpu": ios_multi_cpus,
         "//command_line_option:compiler": settings["//command_line_option:apple_compiler"] if _supports_clo_apple_compiler else None,
         "//command_line_option:cpu": cpu_string,
         "//command_line_option:crosstool_top": (
@@ -118,6 +118,7 @@ def _apple_rule_transition_impl(settings, attr):
         "//command_line_option:macos_minimum_os": _min_os_version_or_none(attr, attr_platforms, "macos", platform_type),
         "//command_line_option:tvos_minimum_os": _min_os_version_or_none(attr, attr_platforms, "tvos", platform_type),
         "//command_line_option:watchos_minimum_os": _min_os_version_or_none(attr, attr_platforms, "watchos", platform_type),
+        "//command_line_option:minimum_os_version": _min_os_version_or_none(attr, attr_platforms, "ios", platform_type),
     }
     return ret
 
@@ -169,6 +170,7 @@ _apple_rule_transition = transition(
         "//command_line_option:macos_minimum_os",
         "//command_line_option:tvos_minimum_os",
         "//command_line_option:watchos_minimum_os",
+        "//command_line_option:minimum_os_version",
     ],
 )
 
