@@ -32,6 +32,7 @@ _SWIFT_LIBRARY_KWARGS = [
     "always_include_developer_search_paths",
     "package_name",
     "plugins",
+    "linkstatic",
 ]
 
 def _private_headers_impl(ctx):
